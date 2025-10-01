@@ -17,22 +17,22 @@ const Footer = () => {
    * Links organizados por categoria
    */
   const footerLinks = {
-    course: {
-      title: "Curso",
+    services: {
+      title: "Serviços",
       links: [
-        { label: "Conteúdo Programático", href: "#content" },
-        { label: "Depoimentos", href: "#testimonials" },
-        { label: "Preços", href: "#pricing" },
-        { label: "FAQ", href: "#faq" }
+        { label: "Power BI", href: "#services" },
+        { label: "Desenvolvimento Web", href: "#services" },
+        { label: "Landing Pages", href: "#services" },
+        { label: "Automações", href: "#services" }
       ]
     },
     company: {
       title: "Empresa",
       links: [
-        { label: "Sobre Nós", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Carreiras", href: "#" },
-        { label: "Contato", href: "#" }
+        { label: "Sobre", href: "#" },
+        { label: "Portfolio", href: "#testimonials" },
+        { label: "Benefícios", href: "#benefits" },
+        { label: "Contato", href: "#contact" }
       ]
     },
     legal: {
@@ -40,7 +40,6 @@ const Footer = () => {
       links: [
         { label: "Termos de Uso", href: "#" },
         { label: "Política de Privacidade", href: "#" },
-        { label: "Política de Reembolso", href: "#" },
         { label: "Cookies", href: "#" }
       ]
     }
@@ -74,13 +73,13 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-hero flex items-center justify-center">
                 <span className="text-white font-bold">W</span>
               </div>
-              <span>WebMaster Pro</span>
+              <span>Soluções Tech</span>
             </a>
 
             {/* Descrição */}
             <p className="text-muted-foreground max-w-sm">
-              Transformamos iniciantes em desenvolvedores web profissionais através 
-              de um método prático e comprovado.
+              Soluções em Power BI, desenvolvimento web e automações para 
+              impulsionar seu negócio com tecnologia de ponta.
             </p>
 
             {/* Redes sociais */}
@@ -127,11 +126,11 @@ const Footer = () => {
         <div className="py-6 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
             <p>
-              © {new Date().getFullYear()} WebMaster Pro. Todos os direitos reservados.
+              © {new Date().getFullYear()} Soluções Tech. Todos os direitos reservados.
             </p>
             
             <p>
-              CNPJ: 00.000.000/0001-00 | Desenvolvido com ❤️ no Brasil
+              Desenvolvido com ❤️ por Guilherme Paulino
             </p>
           </div>
         </div>

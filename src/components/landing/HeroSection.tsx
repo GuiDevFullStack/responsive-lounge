@@ -34,22 +34,21 @@ const HeroSection = () => {
             <Badge 
               className="bg-accent/10 text-accent border-accent/20 hover:bg-accent/20 transition-colors"
             >
-              🚀 Turma 2025 com 40% de desconto
+              🚀 Soluções personalizadas para seu negócio
             </Badge>
 
             {/* Título principal - H1 para SEO */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-              Domine o{" "}
+              Transforme dados em{" "}
               <span className="text-gradient">
-                Desenvolvimento Web
+                decisões estratégicas
               </span>
-              {" "}em 12 Semanas
             </h1>
 
             {/* Subtítulo - Proposta de valor clara */}
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-              Do zero ao profissional. Aprenda HTML, CSS, JavaScript e React 
-              criando projetos reais. Certificado reconhecido e suporte vitalício inclusos.
+              Projetos em Power BI, desenvolvimento de sites profissionais, landing pages de alta conversão 
+              e automações inteligentes para alavancar seu negócio.
             </p>
 
             {/* Botões de ação (CTAs) */}
@@ -59,7 +58,7 @@ const HeroSection = () => {
                 size="lg" 
                 className="bg-gradient-hero hover:opacity-90 transition-opacity text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-8 shadow-glow"
               >
-                Garantir Minha Vaga
+                Solicitar Orçamento
               </Button>
               
               {/* CTA Secundário - Alternativa menos comprometedora */}
@@ -67,21 +66,21 @@ const HeroSection = () => {
                 size="lg" 
                 variant="outline"
                 className="text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-8 border-2"
+                asChild
               >
-                <Play className="mr-2 h-5 w-5" />
-                Assistir Demonstração
+                <a href="#services">Ver Serviços</a>
               </Button>
             </div>
 
             {/* Prova social - Estatísticas de credibilidade */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start pt-4">
               
-              {/* Número de alunos */}
+              {/* Número de projetos */}
               <div className="flex items-center justify-center lg:justify-start gap-2">
                 <Users className="h-5 w-5 text-primary" />
                 <span className="text-sm font-semibold">
-                  <span className="text-foreground">+5.000</span>
-                  <span className="text-muted-foreground ml-1">alunos</span>
+                  <span className="text-foreground">+50</span>
+                  <span className="text-muted-foreground ml-1">projetos entregues</span>
                 </span>
               </div>
 
@@ -95,7 +94,7 @@ const HeroSection = () => {
                 </div>
                 <span className="text-sm font-semibold">
                   <span className="text-foreground">4.9</span>
-                  <span className="text-muted-foreground ml-1">de avaliação</span>
+                  <span className="text-muted-foreground ml-1">satisfação</span>
                 </span>
               </div>
             </div>

@@ -23,11 +23,10 @@ const Header = () => {
   // Array com os links de navegação
   const navLinks = [
     { label: "Início", href: "#hero" },
+    { label: "Serviços", href: "#services" },
     { label: "Benefícios", href: "#benefits" },
-    { label: "Conteúdo", href: "#content" },
     { label: "Depoimentos", href: "#testimonials" },
-    { label: "Preços", href: "#pricing" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Contato", href: "#contact" },
   ];
 
   /**
@@ -52,8 +51,8 @@ const Header = () => {
               <span className="text-white font-bold text-sm lg:text-base">W</span>
             </div>
             {/* Nome da marca */}
-            <span className="hidden sm:inline">WebMaster Pro</span>
-            <span className="sm:hidden">WMP</span>
+            <span className="hidden sm:inline">Soluções Tech</span>
+            <span className="sm:hidden">ST</span>
           </a>
 
           {/* NAVEGAÇÃO DESKTOP - Centro/Direita (oculto em mobile) */}
@@ -74,7 +73,7 @@ const Header = () => {
               className="bg-gradient-cta hover:opacity-90 transition-opacity shadow-md"
               asChild
             >
-              <a href="#pricing">Começar Agora</a>
+              <a href="#contact">Solicitar Orçamento</a>
             </Button>
           </nav>
 
@@ -107,7 +106,7 @@ const Header = () => {
                 className="bg-gradient-cta hover:opacity-90 transition-opacity w-full"
                 asChild
               >
-                <a href="#pricing" onClick={handleNavClick}>Começar Agora</a>
+                <a href="#contact" onClick={handleNavClick}>Solicitar Orçamento</a>
               </Button>
             </div>
           </nav>

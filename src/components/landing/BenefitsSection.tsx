@@ -32,50 +32,50 @@ const BenefitsSection = () => {
   const benefits = [
     {
       icon: Zap,
-      title: "Aprenda na Prática",
-      description: "Projetos reais desde a primeira aula. Nada de teoria sem aplicação prática.",
-      color: "text-accent" // Verde para energia/ação
-    },
-    {
-      icon: Award,
-      title: "Certificado Reconhecido",
-      description: "Certificado de conclusão aceito por empresas de todo o país.",
-      color: "text-primary" // Azul para confiança
-    },
-    {
-      icon: Users,
-      title: "Comunidade Ativa",
-      description: "Junte-se a mais de 5.000 alunos em nossa comunidade exclusiva.",
-      color: "text-secondary" // Roxo para comunidade
-    },
-    {
-      icon: Clock,
-      title: "Acesso Vitalício",
-      description: "Estude no seu ritmo, onde e quando quiser. Sem prazo de expiração.",
+      title: "Power BI Profissional",
+      description: "Dashboards interativos que transformam dados brutos em insights acionáveis para sua empresa.",
       color: "text-accent"
     },
     {
       icon: Code,
-      title: "Projetos do Portfólio",
-      description: "Construa 10+ projetos profissionais para impressionar recrutadores.",
+      title: "Sites Personalizados",
+      description: "Desenvolvimento de sites modernos, responsivos e otimizados para conversão.",
+      color: "text-primary"
+    },
+    {
+      icon: TrendingUp,
+      title: "Landing Pages",
+      description: "Páginas de alta performance focadas em conversão e geração de leads qualificados.",
+      color: "text-secondary"
+    },
+    {
+      icon: Clock,
+      title: "Automação de Tarefas",
+      description: "Automatize processos repetitivos e ganhe tempo para focar no que realmente importa.",
+      color: "text-accent"
+    },
+    {
+      icon: Award,
+      title: "Qualidade Garantida",
+      description: "Projetos entregues com excelência, seguindo as melhores práticas do mercado.",
       color: "text-primary"
     },
     {
       icon: Headphones,
-      title: "Suporte Direto",
-      description: "Tire suas dúvidas com professores especializados via WhatsApp.",
+      title: "Suporte Dedicado",
+      description: "Acompanhamento completo durante e após a entrega do projeto.",
       color: "text-secondary"
     },
     {
-      icon: TrendingUp,
-      title: "Mentorias de Carreira",
-      description: "Orientação profissional para acelerar sua transição de carreira.",
+      icon: Users,
+      title: "Soluções Escaláveis",
+      description: "Projetos que crescem junto com seu negócio, preparados para o futuro.",
       color: "text-accent"
     },
     {
       icon: Shield,
-      title: "Garantia de 30 Dias",
-      description: "Não gostou? Devolvemos 100% do seu dinheiro, sem perguntas.",
+      title: "Segurança e Confiança",
+      description: "Seus dados e projetos protegidos com as melhores práticas de segurança.",
       color: "text-primary"
     }
   ];
@@ -88,7 +88,7 @@ const BenefitsSection = () => {
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16 fade-in">
           {/* Subtítulo pequeno acima do título principal */}
           <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
-            Por que escolher este curso?
+            Por que escolher nossos serviços?
           </p>
           
           {/* Título principal da seção - H2 para hierarquia SEO */}
@@ -99,7 +99,7 @@ const BenefitsSection = () => {
           
           {/* Descrição complementar */}
           <p className="text-lg text-muted-foreground">
-            Muito mais do que um curso: uma experiência completa de aprendizado
+            Muito mais do que projetos: soluções completas para seu negócio
           </p>
         </div>
 

@@ -22,52 +22,52 @@ const TestimonialsSection = () => {
    */
   const testimonials = [
     {
-      name: "Maria Silva",
-      role: "Desenvolvedora Front-end",
-      company: "TechCorp",
-      avatar: "MS", // Iniciais para avatar
+      name: "Ricardo Mendes",
+      role: "Diretor Comercial",
+      company: "Tech Solutions",
+      avatar: "RM",
       rating: 5,
-      text: "Este curso mudou minha vida! Em 3 meses consegui meu primeiro emprego como desenvolvedora. O conteúdo é extremamente prático e os projetos me ajudaram muito nas entrevistas."
+      text: "O dashboard em Power BI revolucionou nossa tomada de decisões. Agora conseguimos acompanhar todas as métricas em tempo real e identificar oportunidades rapidamente."
     },
     {
-      name: "João Santos",
-      role: "Full Stack Developer",
+      name: "Fernanda Costa",
+      role: "Gerente de Marketing",
+      company: "Digital Plus",
+      avatar: "FC",
+      rating: 5,
+      text: "A landing page desenvolvida superou nossas expectativas. Taxa de conversão aumentou 150% no primeiro mês. Profissionalismo e qualidade incomparáveis!"
+    },
+    {
+      name: "Paulo Rocha",
+      role: "CEO",
       company: "StartupXYZ",
-      avatar: "JS",
+      avatar: "PR",
       rating: 5,
-      text: "Já tinha conhecimento básico, mas o curso me deu confiança para aplicar para vagas melhores. Hoje trabalho remotamente ganhando em dólar. Investimento que se pagou sozinho!"
+      text: "As automações implementadas economizaram mais de 20 horas semanais da nossa equipe. Investimento que se pagou em menos de um mês. Altamente recomendado!"
     },
     {
-      name: "Ana Costa",
-      role: "Web Designer",
-      company: "Freelancer",
-      avatar: "AC",
+      name: "Mariana Silva",
+      role: "Diretora Financeira",
+      company: "Consultoria ABC",
+      avatar: "MS",
       rating: 5,
-      text: "Como designer, sempre quis codar minhas próprias criações. Consegui! A didática é incrível e o suporte da comunidade fez toda diferença. Super recomendo!"
+      text: "O site ficou exatamente como imaginávamos. Moderno, rápido e fácil de gerenciar. A atenção aos detalhes e o suporte foram excepcionais."
     },
     {
       name: "Carlos Oliveira",
-      role: "Desenvolvedor React",
-      company: "AgênciaWeb",
+      role: "Gerente de TI",
+      company: "Indústria Tech",
       avatar: "CO",
       rating: 5,
-      text: "Já fiz outros cursos mas este é disparado o melhor. Os professores são acessíveis, o conteúdo é atualizado e os projetos são desafiadores na medida certa."
+      text: "Os relatórios automatizados em Power BI nos deram uma visão 360° do negócio. A integração com nossos sistemas foi perfeita. Excelente trabalho!"
     },
     {
-      name: "Juliana Ferreira",
-      role: "Front-end Junior",
-      company: "FinTech SA",
-      avatar: "JF",
-      rating: 5,
-      text: "Saí do zero absoluto para criar sites profissionais. O certificado me ajudou a validar meu conhecimento e hoje trabalho no que sempre sonhei. Gratidão!"
-    },
-    {
-      name: "Pedro Almeida",
-      role: "Desenvolvedor Web",
+      name: "Ana Beatriz",
+      role: "Head de Vendas",
       company: "E-commerce Inc",
-      avatar: "PA",
+      avatar: "AB",
       rating: 5,
-      text: "Melhor investimento que já fiz na minha carreira. Em 4 meses dobrei meu salário. O acesso vitalício é ótimo para revisar conceitos sempre que preciso."
+      text: "A landing page de vendas que criaram converteu muito além das nossas expectativas. Design impecável e totalmente otimizada para mobile. Parceria de sucesso!"
     }
   ];
 
@@ -87,7 +87,7 @@ const TestimonialsSection = () => {
           </h2>
           
           <p className="text-lg text-muted-foreground">
-            Veja o que nossos alunos estão dizendo sobre o curso
+            Veja o que nossos clientes estão dizendo sobre nosso trabalho
           </p>
         </div>
 

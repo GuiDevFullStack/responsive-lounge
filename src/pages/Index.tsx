@@ -1,36 +1,28 @@
 /**
  * PÁGINA: Index (Página Principal)
  * 
- * Esta é a página principal da landing page.
- * Importa e organiza todos os componentes/seções em sequência.
+ * Landing page de vendas de serviços:
+ * - Projetos Power BI
+ * - Sites e Landing Pages
+ * - Automações de tarefas
  * 
  * Estrutura da página (de cima para baixo):
  * 1. Header (fixo no topo)
  * 2. HeroSection (banner principal)
- * 3. BenefitsSection (benefícios do curso)
- * 4. ContentSection (conteúdo programático)
+ * 3. ServicesSection (serviços oferecidos)
+ * 4. BenefitsSection (benefícios)
  * 5. TestimonialsSection (depoimentos)
- * 6. PricingSection (planos e preços)
- * 7. FAQSection (perguntas frequentes)
- * 8. CTASection (última chamada para ação)
- * 9. Footer (rodapé)
- * 
- * Características:
- * - Layout de página única (one-page)
- * - Scroll suave entre seções
- * - Totalmente responsivo
- * - Otimizado para conversão
+ * 6. ContactSection (formulário de contato)
+ * 7. Footer (rodapé)
  */
 
 // Importação de todos os componentes da landing page
 import Header from "@/components/landing/Header";
 import HeroSection from "@/components/landing/HeroSection";
+import ServicesSection from "@/components/landing/ServicesSection";
 import BenefitsSection from "@/components/landing/BenefitsSection";
-import ContentSection from "@/components/landing/ContentSection";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
-import PricingSection from "@/components/landing/PricingSection";
-import FAQSection from "@/components/landing/FAQSection";
-import CTASection from "@/components/landing/CTASection";
+import ContactSection from "@/components/landing/ContactSection";
 import Footer from "@/components/landing/Footer";
 
 /**
@@ -55,23 +47,17 @@ const Index = () => {
         {/* Seção Hero - Primeira impressão e chamada principal */}
         <HeroSection />
 
-        {/* Seção de Benefícios - Por que escolher este curso */}
+        {/* Seção de Serviços - Detalhamento dos serviços oferecidos */}
+        <ServicesSection />
+
+        {/* Seção de Benefícios - Por que escolher nossos serviços */}
         <BenefitsSection />
 
-        {/* Seção de Conteúdo - O que será aprendido (módulos) */}
-        <ContentSection />
-
-        {/* Seção de Depoimentos - Prova social com histórias reais */}
+        {/* Seção de Depoimentos - Prova social com clientes reais */}
         <TestimonialsSection />
 
-        {/* Seção de Preços - Planos disponíveis e investimento */}
-        <PricingSection />
-
-        {/* Seção de FAQ - Responde dúvidas e objeções */}
-        <FAQSection />
-
-        {/* Seção CTA Final - Última oportunidade de conversão */}
-        <CTASection />
+        {/* Seção de Contato - Formulário para solicitar orçamento */}
+        <ContactSection />
       </main>
 
       {/* 
