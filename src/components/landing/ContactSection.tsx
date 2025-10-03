@@ -28,10 +28,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Upload } from "lucide-react";
 
 /**
  * Schema de validação do formulário usando Zod
@@ -63,12 +64,30 @@ const contactSchema = z.object({
     .trim()
     .min(10, { message: "Mensagem deve ter pelo menos 10 caracteres" })
     .max(1000, { message: "Mensagem muito longa (máximo 1000 caracteres)" }),
+  attachments: z
+    .instanceof(FileList)
+    .optional()
+    .refine(
+      (files) => {
+        if (!files || files.length === 0) return true;
+        return files.length <= 5;
+      },
+      { message: "Máximo de 5 arquivos" }
+    )
+    .refine(
+      (files) => {
+        if (!files || files.length === 0) return true;
+        return Array.from(files).every((file) => file.size <= 10 * 1024 * 1024);
+      },
+      { message: "Cada arquivo deve ter no máximo 10MB" }
+    ),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const { toast } = useToast();
 
   /**
@@ -91,9 +110,32 @@ const ContactSection = () => {
    */
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
+    const uploadedPaths: string[] = [];
 
     try {
-      // Chama a edge function send-contact-email
+      // Upload dos arquivos primeiro, se houver
+      if (data.attachments && data.attachments.length > 0) {
+        for (let i = 0; i < data.attachments.length; i++) {
+          const file = data.attachments[i];
+          const fileExt = file.name.split('.').pop();
+          const fileName = `${Date.now()}-${i}.${fileExt}`;
+          const filePath = `${fileName}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from('contact-attachments')
+            .upload(filePath, file);
+
+          if (uploadError) {
+            throw new Error(`Erro ao fazer upload do arquivo ${file.name}`);
+          }
+
+          uploadedPaths.push(filePath);
+        }
+
+        setUploadedFiles(uploadedPaths);
+      }
+
+      // Chama a edge function send-contact-email com os arquivos
       const { data: responseData, error } = await supabase.functions.invoke(
         "send-contact-email",
         {
@@ -103,6 +145,7 @@ const ContactSection = () => {
             email: data.email,
             subject: data.subject,
             message: data.message,
+            attachmentPaths: uploadedPaths,
           },
         }
       );
@@ -117,15 +160,21 @@ const ContactSection = () => {
         description: "Obrigado pelo contato. Responderemos em breve!",
       });
 
-      // Limpa o formulário
+      // Limpa o formulário e arquivos
       form.reset();
+      setUploadedFiles([]);
     } catch (error: any) {
       console.error("Erro ao enviar mensagem:", error);
       toast({
         title: "Erro ao enviar",
-        description: "Não foi possível enviar sua mensagem. Tente novamente.",
+        description: error.message || "Não foi possível enviar sua mensagem. Tente novamente.",
         variant: "destructive",
       });
+
+      // Em caso de erro, limpa os arquivos enviados
+      for (const path of uploadedPaths) {
+        await supabase.storage.from('contact-attachments').remove([path]);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -309,6 +358,37 @@ const ContactSection = () => {
                               disabled={isSubmitting}
                             />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* ANEXOS (OPCIONAL) */}
+                    <FormField
+                      control={form.control}
+                      name="attachments"
+                      render={({ field: { onChange, value, ...field } }) => (
+                        <FormItem>
+                          <FormLabel>Anexos (Opcional)</FormLabel>
+                          <FormControl>
+                            <div className="flex items-center gap-2">
+                              <Input
+                                type="file"
+                                multiple
+                                accept=".xlsx,.xls,.csv,.pdf,.jpg,.jpeg,.png,.webp"
+                                disabled={isSubmitting}
+                                onChange={(e) => {
+                                  onChange(e.target.files);
+                                }}
+                                {...field}
+                                className="cursor-pointer"
+                              />
+                              <Upload className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                          </FormControl>
+                          <FormDescription>
+                            Formatos aceitos: Excel, CSV, PDF, Imagens (máx. 5 arquivos de 10MB cada)
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

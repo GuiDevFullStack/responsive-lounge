@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@4.0.0";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -15,6 +16,7 @@ interface ContactEmailRequest {
   email: string;
   subject: string;
   message: string;
+  attachmentPaths?: string[];
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -24,13 +26,50 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { firstName, lastName, email, subject, message }: ContactEmailRequest = await req.json();
+    const { firstName, lastName, email, subject, message, attachmentPaths }: ContactEmailRequest = await req.json();
+
+    // Se houver anexos, baixar do storage e preparar para envio
+    const attachments = [];
+    
+    if (attachmentPaths && attachmentPaths.length > 0) {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+      for (const path of attachmentPaths) {
+        try {
+          const { data, error } = await supabase.storage
+            .from('contact-attachments')
+            .download(path);
+
+          if (error) {
+            console.error(`Erro ao baixar arquivo ${path}:`, error);
+            continue;
+          }
+
+          // Converte o blob para base64
+          const arrayBuffer = await data.arrayBuffer();
+          const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+          
+          // Extrai o nome do arquivo original
+          const filename = path.split('/').pop() || 'attachment';
+
+          attachments.push({
+            filename,
+            content: base64,
+          });
+        } catch (err) {
+          console.error(`Erro ao processar arquivo ${path}:`, err);
+        }
+      }
+    }
 
     // Email para o proprietário (guigapaulino@gmail.com)
     const ownerEmailResponse = await resend.emails.send({
       from: "Contato Site <onboarding@resend.dev>",
       to: ["guigapaulino@gmail.com"],
       subject: `Novo Contato: ${subject}`,
+      attachments: attachments.length > 0 ? attachments : undefined,
       html: `
         <h2>Nova mensagem de contato do site</h2>
         
@@ -40,6 +79,8 @@ const handler = async (req: Request): Promise<Response> => {
         
         <h3>Mensagem:</h3>
         <p style="white-space: pre-wrap;">${message}</p>
+        
+        ${attachments.length > 0 ? `<p><strong>Anexos:</strong> ${attachments.length} arquivo(s) em anexo</p>` : ''}
         
         <hr />
         <p style="color: #666; font-size: 12px;">
@@ -81,6 +122,18 @@ const handler = async (req: Request): Promise<Response> => {
     */
 
     console.log("Email enviado com sucesso para o proprietário:", ownerEmailResponse);
+
+    // Limpar arquivos do storage após enviar o email (em background)
+    if (attachmentPaths && attachmentPaths.length > 0) {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const supabase = createClient(supabaseUrl, supabaseServiceKey);
+      
+      // Limpar de forma assíncrona (não bloqueia a resposta)
+      supabase.storage.from('contact-attachments').remove(attachmentPaths)
+        .then(() => console.log('Arquivos temporários removidos'))
+        .catch(err => console.error('Erro ao remover arquivos:', err));
+    }
 
     return new Response(
       JSON.stringify({ 
