@@ -48,9 +48,12 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    // Email de confirmação para o cliente
+    // Email de confirmação para o cliente (DESABILITADO - requer domínio verificado no Resend)
+    // Para habilitar: verifique um domínio em https://resend.com/domains
+    // e altere o 'from' para usar seu domínio verificado (ex: contato@seudominio.com)
+    /*
     const clientEmailResponse = await resend.emails.send({
-      from: "Guilherme Paulino <onboarding@resend.dev>",
+      from: "Guilherme Paulino <contato@seudominio.com>", // Altere após verificar domínio
       to: [email],
       subject: "Recebemos sua mensagem!",
       html: `
@@ -75,15 +78,15 @@ const handler = async (req: Request): Promise<Response> => {
         </p>
       `,
     });
+    */
 
-    console.log("Emails enviados com sucesso:", { ownerEmailResponse, clientEmailResponse });
+    console.log("Email enviado com sucesso para o proprietário:", ownerEmailResponse);
 
     return new Response(
       JSON.stringify({ 
         success: true,
-        ownerEmail: ownerEmailResponse,
-        clientEmail: clientEmailResponse 
-      }), 
+        ownerEmail: ownerEmailResponse
+      }),
       {
         status: 200,
         headers: {
