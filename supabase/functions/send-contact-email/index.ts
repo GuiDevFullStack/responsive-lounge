@@ -47,17 +47,28 @@ const handler = async (req: Request): Promise<Response> => {
             continue;
           }
 
-          // Converte o blob para base64
+          // Converte o blob para ArrayBuffer e depois para Uint8Array
           const arrayBuffer = await data.arrayBuffer();
-          const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+          const uint8Array = new Uint8Array(arrayBuffer);
           
-          // Extrai o nome do arquivo original
-          const filename = path.split('/').pop() || 'attachment';
+          // Converte para base64 de forma eficiente
+          let binary = '';
+          const chunkSize = 0x8000; // 32KB chunks
+          for (let i = 0; i < uint8Array.length; i += chunkSize) {
+            const chunk = uint8Array.subarray(i, Math.min(i + chunkSize, uint8Array.length));
+            binary += String.fromCharCode.apply(null, Array.from(chunk));
+          }
+          const base64 = btoa(binary);
+          
+          // Extrai o nome do arquivo original (remove timestamp)
+          const filename = path.split('-').slice(1).join('-') || 'attachment';
 
           attachments.push({
             filename,
             content: base64,
           });
+
+          console.log(`Arquivo processado: ${filename} (${(arrayBuffer.byteLength / 1024).toFixed(2)}KB)`);
         } catch (err) {
           console.error(`Erro ao processar arquivo ${path}:`, err);
         }
